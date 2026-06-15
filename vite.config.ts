@@ -3,11 +3,9 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "";
-const isUserOrOrgPagesRepo = repoName.endsWith(".github.io");
-const base = process.env.VITE_BASE_PATH ?? (repoName && !isUserOrOrgPagesRepo ? `/${repoName}/` : "/");
-
+// Relative base — works on GitHub Pages project sites regardless of repo name,
+// and also when opened from a subpath. Safe here because this is a single-page app.
 export default defineConfig({
-  base,
+  base: "./",
   plugins: [react(), tailwindcss(), tsconfigPaths()],
 });
