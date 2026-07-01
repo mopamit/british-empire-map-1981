@@ -164,13 +164,7 @@ export default function App() {
     const audio = new Audio("/gbsong.mp3");
     audio.loop = true;
     audio.volume = 0.4;
-    audio.onerror = () => {
-      // fallback
-      const audio2 = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
-      audio2.loop = true;
-      audio2.volume = 0.4;
-      audioRef.current = audio2;
-    };
+
     audioRef.current = audio;
     return () => { audio.pause(); };
   }, []);
