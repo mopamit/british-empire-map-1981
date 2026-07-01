@@ -162,7 +162,7 @@ export default function App() {
 
   const toggleAudio = () => {
     if (!audioRef.current) {
-      audioRef.current = new Audio("/british-empire-map-1981/gbsong.mp3");
+      audioRef.current = new Audio("/british-empire-map-1981/gbsong.ogg");
       audioRef.current.loop = true;
       audioRef.current.volume = 0.5;
     }
