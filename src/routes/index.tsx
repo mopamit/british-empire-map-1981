@@ -161,7 +161,7 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("/God_Save_The_Queen.mp3");
+    const audio = new Audio("/gbsong.mp3");
     audio.loop = true;
     audio.volume = 0.4;
     audio.onerror = () => {
