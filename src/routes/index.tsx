@@ -160,20 +160,20 @@ export default function App() {
   const [audioPlaying, setAudioPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    const audio = new Audio("/gbsong.mp3");
-    audio.loop = true;
-    audio.volume = 0.4;
-
-    audioRef.current = audio;
-    return () => { audio.pause(); };
-  }, []);
-
   const toggleAudio = () => {
+    if (!audioRef.current) {
+      const audio = new Audio("/gbsong.mp3");
+      audio.loop = true;
+      audio.volume = 0.4;
+      audioRef.current = audio;
+    }
     const audio = audioRef.current;
-    if (!audio) return;
-    if (audioPlaying) { audio.pause(); setAudioPlaying(false); }
-    else { audio.play(); setAudioPlaying(true); }
+    if (audioPlaying) {
+      audio.pause();
+      setAudioPlaying(false);
+    } else {
+      audio.play().then(() => setAudioPlaying(true)).catch(() => setAudioPlaying(false));
+    }
   };
 
   const activeCountries = new Set<string>();
