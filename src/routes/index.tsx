@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { heCountryName } from "@/lib/countries-he";
@@ -157,6 +157,23 @@ export default function App() {
   const [zoom, setZoom] = useState(1);
   const [hovered, setHovered] = useState<{ name: string; x: number; y: number } | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio("https://upload.wikimedia.org/wikipedia/commons/b/b4/God_Save_the_Queen.ogg");
+    audio.loop = true;
+    audio.volume = 0.3;
+    audioRef.current = audio;
+    return () => { audio.pause(); };
+  }, []);
+
+  const toggleAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (audioPlaying) { audio.pause(); setAudioPlaying(false); }
+    else { audio.play(); setAudioPlaying(true); }
+  };
 
   const activeCountries = new Set<string>();
   for (let i = 0; i < step; i++) {
@@ -235,6 +252,13 @@ export default function App() {
           className="rounded-md border border-border bg-card px-3 py-2 font-medium hover:bg-muted"
         >
           איפוס
+        </button>
+        <button
+          onClick={toggleAudio}
+          className={`rounded-md px-3 py-2 font-medium border transition-colors ${audioPlaying ? "bg-red-600 text-white border-red-600 hover:bg-red-700" : "border-border bg-card hover:bg-muted"}`}
+          title="המנון בריטניה"
+        >
+          {audioPlaying ? "🔊 המנון" : "🔇 המנון"}
         </button>
         <label className="flex items-center gap-2">
           <span className="text-muted-foreground">מהירות:</span>
