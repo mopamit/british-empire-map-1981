@@ -162,17 +162,16 @@ export default function App() {
 
   const toggleAudio = () => {
     if (!audioRef.current) {
-      const audio = new Audio("/british-empire-map-1981/gbsong.mp3");
-      audio.loop = true;
-      audio.volume = 0.4;
-      audioRef.current = audio;
+      audioRef.current = new Audio("/british-empire-map-1981/gbsong.mp3");
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.5;
     }
-    const audio = audioRef.current;
     if (audioPlaying) {
-      audio.pause();
+      audioRef.current.pause();
       setAudioPlaying(false);
     } else {
-      audio.play().then(() => setAudioPlaying(true)).catch(() => setAudioPlaying(false));
+      audioRef.current.play();
+      setAudioPlaying(true);
     }
   };
 
