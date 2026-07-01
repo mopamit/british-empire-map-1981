@@ -161,9 +161,16 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("https://upload.wikimedia.org/wikipedia/commons/b/b4/God_Save_the_Queen.ogg");
+    const audio = new Audio("https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b4/God_Save_the_Queen.ogg/God_Save_the_Queen.ogg.mp3");
     audio.loop = true;
-    audio.volume = 0.3;
+    audio.volume = 0.4;
+    audio.onerror = () => {
+      // fallback
+      const audio2 = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+      audio2.loop = true;
+      audio2.volume = 0.4;
+      audioRef.current = audio2;
+    };
     audioRef.current = audio;
     return () => { audio.pause(); };
   }, []);
