@@ -161,7 +161,7 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b4/God_Save_the_Queen.ogg/God_Save_the_Queen.ogg.mp3");
+    const audio = new Audio("/God_Save_The_Queen.mp3");
     audio.loop = true;
     audio.volume = 0.4;
     audio.onerror = () => {
